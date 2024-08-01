@@ -3,11 +3,15 @@
 import Image from "next/image";
 import { trancateText } from "@/utils/truncateText";
 import { formatePrice } from "@/utils/formatePrice";
+import { Rating } from "@mui/material";
 interface ProductCardProps{
     data: any;
 }
 
 const ProductCard:React.FC<ProductCardProps>  = ({data}) => {
+
+    const productRating = data.reviews.reduce((acc:number, item:any) => item.rating + acc, 0) / data.reviews.length
+
     return (
         <div className="col-span-1 cursor-pointer border-[1.2px] 
         border-slate-200
@@ -28,7 +32,9 @@ const ProductCard:React.FC<ProductCardProps>  = ({data}) => {
                 <div className="mt-4">
                     {trancateText(data.name)}
                 </div>
-                <div></div>
+                <div>
+                    <Rating value={productRating} readOnly/>
+                </div>
                 <div>{data.reviews.length} reviews</div>
                 <div>{formatePrice(data.price)}</div>
             </div>
