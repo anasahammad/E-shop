@@ -1,6 +1,7 @@
 import { products } from "@/utils/products";
 import Container from "./components/Container";
 import HomeBanner from "./components/HomeBanner";
+import { trancateText } from "@/utils/truncateText";
 
 
 export default function Home() {
@@ -13,7 +14,7 @@ export default function Home() {
 
         <div>
           {products.map((product : any)=>{
-            return <div>{product.name}</div>
+            return <div>{trancateText(product.name) }</div>
           })}
         </div>
       </Container>
