@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { trancateText } from "@/utils/truncateText";
+import { formatePrice } from "@/utils/formatePrice";
 interface ProductCardProps{
     data: any;
 }
@@ -28,8 +29,8 @@ const ProductCard:React.FC<ProductCardProps>  = ({data}) => {
                     {trancateText(data.name)}
                 </div>
                 <div></div>
-                <div></div>
-                <div></div>
+                <div>{data.reviews.length} reviews</div>
+                <div>{formatePrice(data.price)}</div>
             </div>
         </div>
     );
