@@ -14,7 +14,7 @@ interface ItemContentProps{
 
 const ItemContent: React.FC<ItemContentProps> = ({item}) => {
 
-    const {handleRemoveFromCart} = useCart()
+    const {handleRemoveFromCart, handleCartQtyIncrase, handleCartQtyDecrase} = useCart()
     return (
         <div className="grid grid-cols-5 gap-4 py-4 text-xs md:text-sm items-center border-t-[1.5px] border-slate-200">
             <div className="col-span-2 justify-self-start flex gap-2 md:gap-4">
@@ -35,7 +35,7 @@ const ItemContent: React.FC<ItemContentProps> = ({item}) => {
             </div>
             <div className="justify-self-center">{formatePrice(item.price)}</div>
             <div className="justify-self-center">
-                <SetQuantity cartProduct={item} cartCounter={true} handleDecreaseQty={()=>{}} handleIncreaseQty={()=>{}}/>
+                <SetQuantity cartProduct={item} cartCounter={true} handleDecreaseQty={()=>{handleCartQtyDecrase(item)}} handleIncreaseQty={()=>{handleCartQtyIncrase(item)}}/>
             </div>
             <div className="justify-self-end font-semibold">{formatePrice(item.price * item.quantity)}</div>
         </div>
