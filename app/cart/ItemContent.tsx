@@ -6,12 +6,15 @@ import Link from "next/link";
 import { trancateText } from "@/utils/truncateText";
 import Image from "next/image";
 import SetQuantity from "../components/products/SetQuantity";
+import { useCart } from "@/hooks/useCart";
 
 interface ItemContentProps{
     item: CartProductType
 }
 
 const ItemContent: React.FC<ItemContentProps> = ({item}) => {
+
+    const {handleRemoveFromCart} = useCart()
     return (
         <div className="grid grid-cols-5 gap-4 py-4 text-xs md:text-sm items-center border-t-[1.5px] border-slate-200">
             <div className="col-span-2 justify-self-start flex gap-2 md:gap-4">
@@ -26,7 +29,7 @@ const ItemContent: React.FC<ItemContentProps> = ({item}) => {
 
                     <div>{item.selectedImg.color}</div>
                     <div className="w-[70px]">
-                        <button onClick={()=>{}} className="text-slate-500 underline">Remove</button>
+                        <button onClick={()=>{handleRemoveFromCart(item)}} className="text-slate-500 underline">Remove</button>
                     </div>
                 </div>
             </div>
