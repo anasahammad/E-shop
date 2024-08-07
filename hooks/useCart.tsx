@@ -4,6 +4,7 @@ import toast from "react-hot-toast";
 
 type CartContextType = {
     cartTotalQty: number;
+    cartTotalAmount: number;
     cartProducts: CartProductType | null;
     handleAddProductToCard: (product: CartProductType) => void
     handleRemoveFromCart: (product: CartProductType) => void
