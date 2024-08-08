@@ -6,9 +6,13 @@ import Link from "next/link";
 import MenuItem from "./MenuItem";
 import { signOut } from "next-auth/react";
 import BackDrop from "./BackDrop";
+import { SafeUser } from "@/types";
 
 
-const UserMenu = () => {
+interface UserMenuProps{
+    currentUser : SafeUser | null;
+}
+const UserMenu : React.FC<UserMenuProps> = ({currentUser}) => {
     const [isOpen, setIsOpen] = useState(false)
     const toggleOpen = useCallback(()=>{
         setIsOpen(prev => !prev)
@@ -22,30 +26,37 @@ const UserMenu = () => {
             </div>
             {isOpen && (
                 <div className="absolute rounded-md shadow-md bg-white w-[170px] overflow-hidden right-0 top-12 text-sm flex flex-col cursor-pointer ">
+             
+                   
 
-                    <div>
+                        {currentUser ? (<div>
                         <Link href="/orders">
                          <MenuItem onClick={toggleOpen}>Your Orders</MenuItem>
                         </Link>
                         <Link href="/admin">
                          <MenuItem onClick={toggleOpen}>Admin Dashboard</MenuItem>
                         </Link>
-
-                        <MenuItem onClick={()=>{
+                            <hr />
+                         <MenuItem onClick={()=>{
                             toggleOpen();
                             signOut()
                         }}>Logout</MenuItem>
-
-                        <div>
+                        </div>) : (<div>
                         <Link href="/login">
                          <MenuItem onClick={toggleOpen}>Login</MenuItem>
                         </Link>
                         <Link href="/register">
                          <MenuItem onClick={toggleOpen}>Register</MenuItem>
                         </Link>
-                        </div>
+                        </div>)}
+                        
+                        
+                         
+
+
+                        
                     </div>
-                </div>
+                
             )}
         </div>
 
