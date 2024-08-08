@@ -7,10 +7,14 @@ import Button from "../components/Button";
 import { AiOutlineGoogle } from "react-icons/ai";
 import Input from "../components/inputs/Input";
 import Link from "next/link";
+import { signIn } from "next-auth/react";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 
 const LoginForm = () => {
     const [isLoading, setIsLoading] = useState(false)
+    const router = useRouter()
     const {register, handleSubmit, formState:{errors}} = useForm<FieldValues>({
         email : "",
         password: ""
@@ -18,7 +22,24 @@ const LoginForm = () => {
 
     const onSubmit: SubmitHandler<FieldValues> = (data)=>{
         setIsLoading(true)
-        console.log(data)
+        
+        signIn('credentials', {
+            ...data, 
+            redirect: false
+
+        }).then((callback)=>{
+            if(callback?.ok){
+                router.push('/cart')
+                router.refresh();
+                toast.success("Logged In")
+                
+            }
+            if(callback?.error){
+                toast.error(callback.error)
+            }
+        })
+           
+    
     }
     return (
         <>
